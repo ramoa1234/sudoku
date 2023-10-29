@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Grid</title>
+    <style>
+        /* Add some basic styling for better visualization */
+        .sudoku-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 2px;
+        }
 
+        .sudoku-box {
+            border: 1px solid #000;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="sudoku-grid" id="sudokuGrid"></div>
+
+    <script>
+        // Function to create a Sudoku grid
+        function createSudokuGrid() {
+            const sudokuGridContainer = document.getElementById('sudokuGrid');
+
+            // Loop through rows (9 rows)
+            for (let i = 0; i < 9; i++) {
+                // Create a row element
+                const row = document.createElement('div');
+                row.classList.add('sudoku-row');
+
+                // Loop through columns (9 columns)
+                for (let j = 0; j < 9; j++) {
+                    // Create a box element
+                    const box = document.createElement('div');
+                    box.classList.add('sudoku-box');
+
+                    // Set a unique ID for each box (optional)
+                    box.id = `box-${i}-${j}`;
+
+                    // Append the box to the row
+                    row.appendChild(box);
+                }
+
+                // Append the row to the Sudoku grid container
+                sudokuGridContainer.appendChild(row);
+            }
+        }
+
+        // Call the function to create the Sudoku grid
+        createSudokuGrid();
+    </script>
+</body>
+</html>
