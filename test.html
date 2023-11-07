@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <style>
+        .gridContainer {
+            display: grid;
+            grid-template-rows: repeat(9, 50px);
+            grid-template-columns: repeat(9, 50px);
+        }
+        .gridItem {
+            border: 1px solid;
+            padding: 10px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>SUDOKU GAME</h1>
+    
+    <div class="gridContainer" id="sudokuGrid"></div>
+    <button class="button" id="button">button</button>
+    
+    <script>
+        function setGrid() {
+            const gridContainer = document.getElementById("sudokuGrid");
+            for(let i = 0;i < 9;i++) {
+                for(let j = 0;j  < 9;j++) {
+                    const gridItem = document.createElement("div")
+                    gridItem.classList.add("gridItem");
+                    gridItem.textContent = `${i},${j}`;
+                    gridContainer.appendChild(gridItem);
+                }
+            }
+        }
+        function gridValues() {
+            
+
+        }
+        document.getElementById("button").addEventListener("click",setGrid);
+        document.addEventListener("DOMContentLoaded", setGrid);
+    </script>
+</body>
+</html>
+
