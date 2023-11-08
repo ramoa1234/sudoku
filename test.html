@@ -32,14 +32,16 @@
                 for(let j = 0;j  < 9;j++) {
                     const gridItem = document.createElement("div")
                     gridItem.classList.add("gridItem");
-                    gridItem.textContent = `${i},${j}`;
+                    gridItem.dataset.row = i;
+                    gridItem.dataset.column = j;
                     gridContainer.appendChild(gridItem);
                 }
             }
         }
-        function gridValues() {
+        function fillgrid(gridItem.dataset.row, gridItem.dataset.column) {
             
-
+           
+    
         }
         document.getElementById("button").addEventListener("click",setGrid);
         document.addEventListener("DOMContentLoaded", setGrid);
