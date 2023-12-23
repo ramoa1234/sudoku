@@ -1,152 +1,67 @@
-code needs to be able to backtrack and change things if a value cannot be plugged in.
-
-CODE DESIGN
-
-grid designed in cs
-make logic to fill(crete the board[i][j] and its variables
-
-random generating algorithm
-    need to randomly generate a number to put in the grid\
- generate random number in random spot than use a solving algorithm to fill in the board.
-
-    check the validity of the grid.
-need to check the validity to make sure that the grid is solveable
-
-than need to return 17 squares to the user and make it solveable for them
-
-than need to make an error counter that keeps count of the amount of errors
-
-finish the front end
 
 
-
-class Solution {
-    public void solveSudoku(char[][] board) {
-        
-        for(int i = 0;i < 9;i++) {
-            HashSet<Character> row = new HashSet<>();
-            for(int j = 0;j < board[i].length;j++) {
-                if(board[i][j] == '.') {
-                    for(int k = 1;k <= 9;k++) {
-                        char current = (char)(k);
-                        if(!row.add(current)) {
-                            board[i][j] = current;
-                            break; 
-                        }   else if (k == '9'){
-                            board[i][j] = '.';
-                        }
-                
-                    }
-
-                }
-
-            }
+class sudoku {
+    public static void main() {
+        int board[][] = new int[9][9];
+        fillGrid(board);
+        if(isValid(board))  {
+            solve(board);
         }
-       return;
     }
-}
-
-
-
-
-
-
-
-finished problem 36 solution 
-
-class Solution {
-    public boolean isValidSudoku(char[][] board) {
+    public int fillGrid(int[][] board)  {
+        Random rand = new Random();
         for(int i = 0;i < 9;i++) {
-            HashSet<Character> row = new HashSet<>();
-            HashSet<Character> subGrid = new HashSet<>();
+            for(int j = 0;j < <9;j++) {
+                board[i][j] = 0;
+            }
+        } 
+        for(int k = 0;k < 17;k++) {
+            int row, col, num;
+            do {
+                row = rand.nextInt(9);
+                col = rand.nextInt(9);
+                num = rand.nextInt(9) + 1;
+            } while(!isValid(board, row, col, num));
+            board[row][col] = num;    
+        }
+    public boolean isValid(int[][] board, int row, int col, int num) {
+        HashSet<Integer> setRow = new HashSet<>();
+        HashSet<Integer> setCol = new HashSet<>();
+        for(int i = 0;i < 9;i++) {
             for(int j = 0;j < 9;j++) {
-                HashSet<Character> column = new HashSet<>();
-                //row
-                if(board[i][j] != '.') {
-                    if(!row.add(board[i][j])) {
+                if(board[i][j] != 0) {
+                    if(!setRow.contains(board[i][j])) {
+                        setRow.add(board[i][j]);
+                    } else {
                         return false;
-                    } 
-                    else {
-                        row.add(board[i][j]);
-                    }   
-                }
-                //columns
-                if(board[j][i] != '.') {
-                    if(!column.add(board[j][i])) {
-                        return false;
-                    } 
-                    else {
-                        column.add(board[j][i]);
-                    }   
-
-                }
-                int subGridRow = 3 * (i / 3);
-                int subGridColumn = 3 * (j / 3);
-                char subGridValue = board[subGridRow + j / 3][subGridColumn + j % 3];
-
-                if(subGridValue != '.') {
-                    if(!subGrid.add(subGridValue)) {
-                        return false;
-
                     }
-
                 }
-
-
+                else if(board[j][i] != 0) {
+                    if(!setCol.contains(board[j][i])) {  
+                        setCol.add(board[j][i]);
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                //NEEDS TO VALIDATE A SUBGRID
+                }
             }
-
         }
-        
-        return true;
     }
-
-}
-
-37
-class Solution {
-    public void solveSudoku(char[][] board) {
-        
+    public int solve(int[][] board)  {
         for(int i = 0;i < 9;i++) {
-            HashSet<Character> row = new HashSet<>():
-            for(int j = 0;j < board[i].length;j++) {
-                HashSet<Character> column = new HashSet<>();
-                if(board[i][j] == '.') {
-                   for(int k = 1; k <= 9;k++) {
-                    board[i][j] = k;   
-                    if(row.add(board[i][j])) {
-                        row.add(board[i][j]);
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                    board[j][i] = k;
-                    if(column.add(board[j][i])) {
-                        column.add(board[j][i]);
-                        break
-                    }
-                    else {
-                        break;
-                    }
+            for(int j = 0;j < 9;j++) {
+                while(board[i][j] == 0) {
+                    for(int k = 0;k < 9;k++) {
 
-
-
-                   }
+                    }
                 }
-
-
-
 
             }
         }
-       return;
     }
 }
-
-// fill in number iterating loop
-//check condition(if number hits 9 and no valid values are found)
-//if valid iterate
-//else backtrack
-
-
-
+//TODO
+//find out how to validate a subgrid
+//implement backtracking
