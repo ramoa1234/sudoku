@@ -1,67 +1,63 @@
-
-
-class sudoku {
-    public static void main() {
-        int board[][] = new int[9][9];
-        fillGrid(board);
-        if(isValid(board))  {
-            solve(board);
-        }
-    }
-    public int fillGrid(int[][] board)  {
-        Random rand = new Random();
-        for(int i = 0;i < 9;i++) {
-            for(int j = 0;j < <9;j++) {
-                board[i][j] = 0;
-            }
-        } 
-        for(int k = 0;k < 17;k++) {
-            int row, col, num;
-            do {
-                row = rand.nextInt(9);
-                col = rand.nextInt(9);
-                num = rand.nextInt(9) + 1;
-            } while(!isValid(board, row, col, num));
-            board[row][col] = num;    
-        }
-    public boolean isValid(int[][] board, int row, int col, int num) {
-        HashSet<Integer> setRow = new HashSet<>();
-        HashSet<Integer> setCol = new HashSet<>();
-        for(int i = 0;i < 9;i++) {
-            for(int j = 0;j < 9;j++) {
-                if(board[i][j] != 0) {
-                    if(!setRow.contains(board[i][j])) {
-                        setRow.add(board[i][j]);
-                    } else {
-                        return false;
-                    }
-                }
-                else if(board[j][i] != 0) {
-                    if(!setCol.contains(board[j][i])) {  
-                        setCol.add(board[j][i]);
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                //NEEDS TO VALIDATE A SUBGRID
-                }
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Stack;
+//TODO
+//random fills
+//check if valid
+//trakin intial values
+//backtrack
+    //backtraking needs to be recursive
+public class sudoku2 {
+    public static void main(String[] args) {
+        int[][] board = new int[9][9];
+        boolean[][] isInitial = new boolean[9][9];
+        for(int row = 0;row < 9;row++){
+            HashSet<Integer> setRow = new HashSet<>();
+            HashSet<Integer> setColumn = new HashSet<>();
+            HashSet<Integer> setSubGrid = new HashSet<>();
+            Stack<Integer> stack = new Stack<>();
+            for(int column = 0;column < 9;column++) {
+                z
             }
         }
     }
-    public int solve(int[][] board)  {
-        for(int i = 0;i < 9;i++) {
-            for(int j = 0;j < 9;j++) {
-                while(board[i][j] == 0) {
-                    for(int k = 0;k < 9;k++) {
-
-                    }
-                }
-
+    public static boolean isValid(int[][]board, int row, int column, HashSet<Integer> setRow, HashSet<Integer> setColumn, HashSet<Integer> setSubGrid) {
+        if(board[row][column] != 0) {
+            if(!setRow.contains(board[row][column])) {
+                setRow.add(board[row][column]);
+            }
+            else return false;
+        }
+        if(board[column][row] != 0) {
+            if(!setColumn.contains(board[column][row])) {
+                setColumn.add(board[column][row]);
+            }
+            else return false;
+        }
+        if(board[row - row % 3][column - column % 3] != 0) {
+            if(!setSubGrid.contains(board[row - row % 3][column - column % 3])) {
+                setSubGrid.add(board[row - row % 3][column - column % 3]);
+            }
+            else return false;
+        }
+        return true;
+    }
+    public static void fillGrid(int[][] board,boolean[][] isInitial) {
+        for(int i = 0;i < 17;i++) {
+            int tempRow,tempColumn,tempValue;
+            Random random = new Random();
+            tempRow = random.nextInt(9);
+            tempColumn = random.nextInt(9);
+            tempValue = random.nextInt(9 + 1);
+            if(isValid(board, tempRow, tempColumn, new HashSet<>(), new HashSet<>(), new HashSet<>())) {
+                board[tempRow][tempColumn] = tempValue;
+                isInitial[tempRow][tempColumn] = true;
             }
         }
+    }
+    public static void backtrack(int[][] board, int row, int column, HashSet<Integer> setRow, HashSet<Integer> setColumn, HashSet<Integer> setSubGrid, boolean[][] isInitial, Stack<Integer> stack) {
+        //need to backtracking while loop(make own pointers)
+        //use a stack
     }
 }
-//TODO
-//find out how to validate a subgrid
-//implement backtracking
+
